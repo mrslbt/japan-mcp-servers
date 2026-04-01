@@ -15,7 +15,7 @@ These servers implement the [Model Context Protocol](https://modelcontextprotoco
 ## Quick start
 
 ```bash
-git clone https://github.com/marselbait/japan-mcp-servers.git
+git clone https://github.com/mrslbt/japan-mcp-servers.git
 cd japan-mcp-servers
 npm install
 npm run build
