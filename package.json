@@ -1,0 +1,33 @@
+{
+  "name": "japan-mcp-servers",
+  "version": "0.1.0",
+  "description": "MCP servers for Japanese services — LINE, Rakuten, freee, and more. Connect AI assistants to Japan's digital ecosystem.",
+  "private": true,
+  "workspaces": [
+    "servers/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "anthropic",
+    "claude",
+    "japan",
+    "line",
+    "rakuten",
+    "freee",
+    "ai-agents"
+  ],
+  "author": "Marsel Bait",
+  "license": "MIT",
+  "overrides": {
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.0"
+  }
+}

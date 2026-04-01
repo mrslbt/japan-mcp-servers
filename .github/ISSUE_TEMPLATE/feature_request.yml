@@ -1,0 +1,33 @@
+name: Feature request
+description: Suggest a new tool, server, or improvement
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options:
+        - New tool for existing server
+        - New server (new Japanese service)
+        - Improvement to existing tool
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: service
+    attributes:
+      label: Service / API
+      description: Which Japanese service does this involve?
+      placeholder: e.g., Mercari, LINE, Rakuten Travel
+  - type: textarea
+    id: description
+    attributes:
+      label: What should it do?
+      description: Describe the tool or feature. Link to API docs if available.
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: How would you use this? What prompt would you give your AI assistant?

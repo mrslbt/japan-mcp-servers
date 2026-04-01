@@ -1,0 +1,44 @@
+name: Bug report
+description: Something isn't working
+labels: [bug]
+body:
+  - type: dropdown
+    id: server
+    attributes:
+      label: Server
+      options:
+        - "@japan-mcp/line"
+        - "@japan-mcp/rakuten"
+        - "@japan-mcp/freee"
+        - Other / multiple
+    validations:
+      required: true
+  - type: input
+    id: tool
+    attributes:
+      label: Tool name
+      description: Which tool were you calling? (e.g., send_push_message, search_products)
+      placeholder: e.g., search_products
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you expect vs. what actually happened?
+    validations:
+      required: true
+  - type: textarea
+    id: config
+    attributes:
+      label: MCP client config (redact credentials)
+      description: Your claude_desktop_config.json or equivalent, with tokens replaced.
+      render: json
+  - type: input
+    id: node-version
+    attributes:
+      label: Node.js version
+      placeholder: e.g., 22.0.0
+  - type: input
+    id: mcp-client
+    attributes:
+      label: MCP client
+      placeholder: e.g., Claude Desktop 1.2.0, Cursor 0.50, VS Code
