@@ -2,7 +2,7 @@
 
 ## Reporting vulnerabilities
 
-If you find a security issue, **do not open a public GitHub issue.** Instead, email marselbait@gmail.com with details. I'll respond within 48 hours.
+If you find a security issue, **do not open a public GitHub issue.** Instead, email marsellbait@gmail.com with details. I'll respond within 48 hours.
 
 ## How credentials are handled
 
