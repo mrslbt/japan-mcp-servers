@@ -1,6 +1,6 @@
 # japan-mcp-servers
 
-MCP servers for Japanese services. LINE, Rakuten, freee — with more on the way.
+MCP servers for Japanese services. LINE, Rakuten, freee, with more on the way.
 
 These servers implement the [Model Context Protocol](https://modelcontextprotocol.io/) so that AI assistants (Claude, Cursor, VS Code Copilot, etc.) can actually talk to the services that run Japan's digital infrastructure.
 
@@ -53,7 +53,7 @@ Then add whichever servers you need to your MCP client config. Here's Claude Des
 }
 ```
 
-Each server validates credentials on startup — you'll know immediately if something's missing.
+Each server validates credentials on startup. You'll know immediately if something's missing.
 
 ## What you can do
 
@@ -143,14 +143,14 @@ Each server is a standalone npm package. They share build tooling but have zero 
 
 Planned servers (PRs welcome):
 
-- Mercari — product search, listing management
-- Yahoo! Japan — search, auctions, shopping
-- SmartHR — HR / employee management
-- Money Forward — personal finance
-- PayPay — mobile payments
-- Tabelog — restaurant search
-- Suumo — real estate
-- Hotpepper — restaurant & beauty reservations
+- Mercari - product search, listing management
+- Yahoo! Japan - search, auctions, shopping
+- SmartHR - HR / employee management
+- Money Forward - personal finance
+- PayPay - mobile payments
+- Tabelog - restaurant search
+- Suumo - real estate
+- Hotpepper - restaurant & beauty reservations
 
 ## Contributing
 
