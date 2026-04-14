@@ -1,8 +1,8 @@
 # japan-mcp-servers
 
-MCP servers for Japanese services. LINE, Rakuten, freee, with more on the way.
+MCP servers for Japanese services. LINE, Rakuten, freee.
 
-These servers implement the [Model Context Protocol](https://modelcontextprotocol.io/) so that AI assistants (Claude, Cursor, VS Code Copilot, etc.) can actually talk to the services that run Japan's digital infrastructure.
+These servers let AI agents (Claude, Cursor, VS Code Copilot) connect to the services people in Japan use every day.
 
 ## Servers
 
