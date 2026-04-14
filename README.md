@@ -53,7 +53,7 @@ Then add whichever servers you need to your MCP client config. Here's Claude Des
 }
 ```
 
-Each server validates credentials on startup. You'll know immediately if something's missing.
+Credentials are validated when you call a tool, not on startup.
 
 ## What you can do
 
@@ -68,6 +68,8 @@ freeeの損益計算書を見せて
 ```
 
 ## LINE
+
+> **Note:** LINE now has an official MCP server: [`@line/line-bot-mcp-server`](https://github.com/line/line-bot-mcp-server). Use that for production. The implementation here was built independently and covers a broader set of tools.
 
 Connect to Japan's dominant messaging platform (95M+ MAU).
 
@@ -104,6 +106,8 @@ Search Japan's largest e-commerce marketplace, plus Books and Travel.
 | `get_product_reviews` | Product reviews with rating sort |
 
 ## freee
+
+> **Note:** freee now maintains an official MCP server: [`freee-mcp`](https://github.com/freee/freee-mcp) covering 330+ APIs. Use that for production. The implementation here was built independently as a lightweight alternative.
 
 Cloud accounting for Japanese businesses. freee is Japan's #1 accounting SaaS.
 
