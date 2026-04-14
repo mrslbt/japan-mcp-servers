@@ -1,18 +1,56 @@
-# @japan-mcp/rakuten
+# rakuten-mcp
 
 MCP server for [Rakuten Web Service APIs](https://webservice.rakuten.co.jp/).
 
-Search Japan's largest e-commerce marketplace, plus Rakuten Books and Rakuten Travel.
+Search Japan's largest e-commerce marketplace, plus Rakuten Books and Rakuten Travel — all from your AI assistant.
+
+## Install
+
+```bash
+npx rakuten-mcp
+```
+
+Or install globally:
+
+```bash
+npm install -g rakuten-mcp
+```
 
 ## Setup
 
 1. Register at [Rakuten Web Service](https://webservice.rakuten.co.jp/) (free)
 2. Create an application to get an **Application ID** and **Access Key**
-3. Set the environment variables:
+
+### Claude Desktop
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "rakuten": {
+      "command": "npx",
+      "args": ["-y", "rakuten-mcp"],
+      "env": {
+        "RAKUTEN_APP_ID": "your-app-id",
+        "RAKUTEN_ACCESS_KEY": "your-access-key"
+      }
+    }
+  }
+}
+```
+
+### Claude Code
 
 ```bash
-export RAKUTEN_APP_ID="your-app-id-here"
-export RAKUTEN_ACCESS_KEY="your-access-key-here"
+claude mcp add rakuten -- npx -y rakuten-mcp
+```
+
+Then set your environment variables:
+
+```bash
+export RAKUTEN_APP_ID="your-app-id"
+export RAKUTEN_ACCESS_KEY="your-access-key"
 ```
 
 ## Tools
@@ -27,30 +65,35 @@ export RAKUTEN_ACCESS_KEY="your-access-key-here"
 | `search_travel_vacancy` | Search available hotel rooms with date/price/location filters |
 | `get_product_reviews` | Read product reviews with rating and date sorting |
 
-## Usage with Claude Desktop
+## Prompts
 
-```json
-{
-  "mcpServers": {
-    "rakuten": {
-      "command": "node",
-      "args": ["path/to/servers/rakuten-mcp/dist/index.js"],
-      "env": {
-        "RAKUTEN_APP_ID": "your-app-id-here",
-        "RAKUTEN_ACCESS_KEY": "your-access-key-here"
-      }
-    }
-  }
-}
+| Prompt | Description |
+|--------|-------------|
+| `search_products` | Search for products with optional price filters |
+| `compare_products` | Compare products sorted by reviews or price |
+| `category_bestsellers` | Get bestseller ranking for a category |
+| `product_reviews` | Read and summarize reviews for a product |
+| `find_hotel` | Find available hotels for specific dates |
+| `budget_hotel` | Find hotels within a budget |
+| `find_book` | Search for a book by title, author, or ISBN |
+| `books_by_author` | Find all books by an author |
+
+## Resources
+
+| Resource | URI | Description |
+|----------|-----|-------------|
+| Supported Genres | `rakuten://genres` | Top-level Rakuten Ichiba product categories |
+
+## Example queries
+
 ```
-
-## Example Prompts
-
-- "Find wireless earphones under 10,000 yen with good reviews"
-- "What are the top sellers on Rakuten right now?"
-- "Search for hotels in Kyoto on Rakuten Travel"
-- "Find available rooms near Tokyo Station for April 15-17 under 15,000 yen"
-- "Find books by Haruki Murakami on Rakuten Books"
+楽天で1万円以下のワイヤレスイヤホンを探して
+Find wireless earphones under ¥10,000 with good reviews
+What are the top sellers on Rakuten right now?
+Search for hotels in Kyoto on Rakuten Travel
+Find available rooms near Tokyo Station for April 15-17 under ¥15,000
+村上春樹の本を楽天ブックスで探して
+```
 
 ## License
 

@@ -8,11 +8,42 @@ These servers implement the [Model Context Protocol](https://modelcontextprotoco
 
 | Package | Service | What it does |
 |---------|---------|-------------|
-| [`@japan-mcp/line`](./servers/line-mcp) | LINE Messaging | Send messages, manage groups, rich menus, analytics |
-| [`@japan-mcp/rakuten`](./servers/rakuten-mcp) | Rakuten Ichiba / Books / Travel | Product search, rankings, book search, hotel availability |
-| [`@japan-mcp/freee`](./servers/freee-mcp) | freee Accounting | Transactions, P&L, trial balance, partners |
+| [`rakuten-mcp`](https://www.npmjs.com/package/rakuten-mcp) | Rakuten Ichiba / Books / Travel | Product search, rankings, book search, hotel availability |
+| [`line-mcp`](./servers/line-mcp) | LINE Messaging | Send messages, manage groups, rich menus, analytics |
+| [`freee-mcp`](./servers/freee-mcp) | freee Accounting | Transactions, P&L, trial balance, partners |
 
 ## Quick start
+
+### Rakuten (via npm)
+
+```bash
+npx rakuten-mcp
+```
+
+Add to Claude Desktop (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "rakuten": {
+      "command": "npx",
+      "args": ["-y", "rakuten-mcp"],
+      "env": {
+        "RAKUTEN_APP_ID": "your-app-id",
+        "RAKUTEN_ACCESS_KEY": "your-access-key"
+      }
+    }
+  }
+}
+```
+
+Or with Claude Code:
+
+```bash
+claude mcp add rakuten -- npx -y rakuten-mcp
+```
+
+### LINE & freee (from source)
 
 ```bash
 git clone https://github.com/mrslbt/japan-mcp-servers.git
@@ -21,9 +52,9 @@ npm install
 npm run build
 ```
 
-Then add whichever servers you need to your MCP client config. Here's Claude Desktop (`claude_desktop_config.json`):
+Then add to Claude Desktop:
 
-```jsonc
+```json
 {
   "mcpServers": {
     "line": {
@@ -31,14 +62,6 @@ Then add whichever servers you need to your MCP client config. Here's Claude Des
       "args": ["/absolute/path/to/servers/line-mcp/dist/index.js"],
       "env": {
         "LINE_CHANNEL_ACCESS_TOKEN": "your-token"
-      }
-    },
-    "rakuten": {
-      "command": "node",
-      "args": ["/absolute/path/to/servers/rakuten-mcp/dist/index.js"],
-      "env": {
-        "RAKUTEN_APP_ID": "your-app-id",
-        "RAKUTEN_ACCESS_KEY": "your-access-key"
       }
     },
     "freee": {
