@@ -83,10 +83,19 @@ Credentials are validated when you call a tool, not on startup.
 Once configured, you can ask your AI assistant things like:
 
 ```
+Send a meeting reminder to my LINE group
 LINEグループにミーティングのリマインダーを送って
+
+Search Rakuten for wireless earphones under ¥10,000
 楽天で1万円以下のワイヤレスイヤホンを検索して
+
+Record this month's expenses in freee
 今月の経費をfreeeに登録して
+
+Find available hotels in Kyoto on Rakuten Travel
 楽天トラベルで京都の空室を探して
+
+Show me the P&L statement from freee
 freeeの損益計算書を見せて
 ```
 

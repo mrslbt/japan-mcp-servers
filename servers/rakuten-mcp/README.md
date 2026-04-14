@@ -87,11 +87,19 @@ export RAKUTEN_ACCESS_KEY="your-access-key"
 ## Example queries
 
 ```
-楽天で1万円以下のワイヤレスイヤホンを探して
 Find wireless earphones under ¥10,000 with good reviews
+楽天で1万円以下のワイヤレスイヤホンを探して
+
 What are the top sellers on Rakuten right now?
+楽天の今の売れ筋ランキングを見せて
+
 Search for hotels in Kyoto on Rakuten Travel
+楽天トラベルで京都のホテルを探して
+
 Find available rooms near Tokyo Station for April 15-17 under ¥15,000
+東京駅近くで4月15〜17日、1万5千円以下の空室を探して
+
+Find books by Haruki Murakami on Rakuten Books
 村上春樹の本を楽天ブックスで探して
 ```
 
