@@ -294,6 +294,109 @@ server.tool(
   }
 );
 
+// --- Prompts ---
+
+server.prompt(
+  "record_expense",
+  "Record an expense transaction in freee",
+  {
+    description: z.string().describe("What the expense was for"),
+    amount: z.string().describe("Amount in yen"),
+    date: z.string().describe("Date (YYYY-MM-DD)"),
+  },
+  ({ description, amount, date }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Record an expense in freee: ¥${amount} for "${description}" on ${date}`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "monthly_report",
+  "Get a profit and loss report for a specific month",
+  {
+    year: z.string().describe("Fiscal year"),
+    month: z.string().describe("Month number (1-12)"),
+  },
+  ({ year, month }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Show me the freee profit and loss report for ${year}/${month}`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "recent_transactions",
+  "List recent transactions from freee",
+  {
+    type: z.enum(["income", "expense", "all"]).describe("Transaction type"),
+    days: z.string().default("30").describe("How many days back to look"),
+  },
+  ({ type, days }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: type === "all"
+            ? `Show me all freee transactions from the last ${days} days`
+            : `Show me ${type} transactions from freee for the last ${days} days`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "trial_balance",
+  "Get the trial balance sheet for a fiscal year",
+  {
+    year: z.string().describe("Fiscal year"),
+  },
+  ({ year }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Show me the freee trial balance for fiscal year ${year}`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "find_partner",
+  "Search for a trading partner in freee",
+  {
+    name: z.string().describe("Partner name to search for"),
+  },
+  ({ name }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Search freee for a trading partner named "${name}"`,
+        },
+      },
+    ],
+  })
+);
+
 // --- Resources ---
 
 server.resource(

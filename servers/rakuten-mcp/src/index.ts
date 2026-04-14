@@ -444,6 +444,67 @@ server.prompt(
 );
 
 server.prompt(
+  "compare_products",
+  "Compare products on Rakuten by searching and sorting by reviews or price",
+  {
+    query: z.string().describe("Product type to compare"),
+    sortBy: z.enum(["reviews", "price_low", "price_high"]).describe("How to sort results"),
+  },
+  ({ query, sortBy }) => {
+    const sortMap = { reviews: "-reviewCount", price_low: "+itemPrice", price_high: "-itemPrice" };
+    return {
+      messages: [
+        {
+          role: "user" as const,
+          content: {
+            type: "text" as const,
+            text: `Search Rakuten for "${query}" sorted by ${sortBy === "reviews" ? "most reviews" : sortBy === "price_low" ? "lowest price" : "highest price"} and compare the top results`,
+          },
+        },
+      ],
+    };
+  }
+);
+
+server.prompt(
+  "category_bestsellers",
+  "Get the current bestseller ranking for a Rakuten product category",
+  {
+    category: z.string().describe("Product category (e.g., electronics, fashion, food)"),
+  },
+  ({ category }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Show me the current Rakuten bestseller ranking for ${category}`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "product_reviews",
+  "Read reviews for a specific Rakuten product",
+  {
+    itemCode: z.string().describe("Rakuten item code (shop:itemId format)"),
+  },
+  ({ itemCode }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Get reviews for Rakuten product ${itemCode} and summarize the overall sentiment`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
   "find_hotel",
   "Find available hotels on Rakuten Travel for specific dates",
   {
@@ -465,6 +526,28 @@ server.prompt(
 );
 
 server.prompt(
+  "budget_hotel",
+  "Find cheap hotels on Rakuten Travel within a budget",
+  {
+    location: z.string().describe("City or area name"),
+    checkin: z.string().describe("Check-in date (YYYY-MM-DD)"),
+    checkout: z.string().describe("Check-out date (YYYY-MM-DD)"),
+    maxPrice: z.string().describe("Maximum price per night in yen"),
+  },
+  ({ location, checkin, checkout, maxPrice }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Find hotels in ${location} on Rakuten Travel from ${checkin} to ${checkout} under ¥${maxPrice} per night`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
   "find_book",
   "Search for a book on Rakuten Books",
   {
@@ -477,6 +560,25 @@ server.prompt(
         content: {
           type: "text" as const,
           text: `Search Rakuten Books for "${query}"`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "books_by_author",
+  "Find all books by a specific author on Rakuten Books",
+  {
+    author: z.string().describe("Author name"),
+  },
+  ({ author }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Find all books by ${author} on Rakuten Books`,
         },
       },
     ],

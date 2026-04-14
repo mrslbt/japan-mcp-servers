@@ -303,6 +303,102 @@ server.tool(
   }
 );
 
+// --- Prompts ---
+
+server.prompt(
+  "send_message",
+  "Send a message to a LINE user or group",
+  {
+    to: z.string().describe("User ID or group ID"),
+    message: z.string().describe("Message to send"),
+  },
+  ({ to, message }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Send this message on LINE to ${to}: "${message}"`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "broadcast_announcement",
+  "Broadcast an announcement to all LINE followers",
+  {
+    message: z.string().describe("Announcement text"),
+  },
+  ({ message }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Broadcast this announcement to all LINE followers: "${message}"`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "check_delivery_stats",
+  "Check LINE message delivery statistics for a date",
+  {
+    date: z.string().describe("Date in YYYYMMDD format"),
+  },
+  ({ date }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Show me the LINE message delivery stats for ${date}`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "group_members",
+  "List all members of a LINE group",
+  {
+    groupId: z.string().describe("LINE group ID"),
+  },
+  ({ groupId }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `List all members in LINE group ${groupId}`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "check_quota",
+  "Check remaining LINE messaging quota",
+  {},
+  () => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: "How many LINE messages can I still send this month? Check my quota and consumption.",
+        },
+      },
+    ],
+  })
+);
+
 // --- Resources ---
 
 server.resource("bot-info", "line://bot-info", async (uri) => {
