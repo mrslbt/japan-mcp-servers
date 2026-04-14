@@ -419,6 +419,98 @@ server.tool(
   }
 );
 
+// --- Prompts ---
+
+server.prompt(
+  "search_products",
+  "Search for products on Rakuten Ichiba with optional price filters",
+  {
+    query: z.string().describe("What to search for"),
+    maxPrice: z.string().optional().describe("Maximum price in yen"),
+  },
+  ({ query, maxPrice }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: maxPrice
+            ? `Search Rakuten for "${query}" under ¥${maxPrice}`
+            : `Search Rakuten for "${query}"`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "find_hotel",
+  "Find available hotels on Rakuten Travel for specific dates",
+  {
+    location: z.string().describe("City or area name"),
+    checkin: z.string().describe("Check-in date (YYYY-MM-DD)"),
+    checkout: z.string().describe("Check-out date (YYYY-MM-DD)"),
+  },
+  ({ location, checkin, checkout }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Find available hotels in ${location} on Rakuten Travel from ${checkin} to ${checkout}`,
+        },
+      },
+    ],
+  })
+);
+
+server.prompt(
+  "find_book",
+  "Search for a book on Rakuten Books",
+  {
+    query: z.string().describe("Book title, author, or ISBN"),
+  },
+  ({ query }) => ({
+    messages: [
+      {
+        role: "user" as const,
+        content: {
+          type: "text" as const,
+          text: `Search Rakuten Books for "${query}"`,
+        },
+      },
+    ],
+  })
+);
+
+// --- Resources ---
+
+server.resource(
+  "supported-genres",
+  "rakuten://genres",
+  { description: "Top-level Rakuten Ichiba product categories", mimeType: "application/json" },
+  async () => ({
+    contents: [
+      {
+        uri: "rakuten://genres",
+        mimeType: "application/json",
+        text: JSON.stringify({
+          note: "Use search_genres tool with genreId '0' to get the full live category tree. Common top-level genres:",
+          genres: [
+            { id: "100371", name: "パソコン・周辺機器 (Computers)" },
+            { id: "100026", name: "本・雑誌・コミック (Books)" },
+            { id: "100227", name: "食品 (Food)" },
+            { id: "558885", name: "家電 (Electronics)" },
+            { id: "100433", name: "ファッション (Fashion)" },
+            { id: "101070", name: "インテリア・寝具 (Home & Living)" },
+            { id: "100533", name: "スポーツ・アウトドア (Sports)" },
+          ],
+        }, null, 2),
+      },
+    ],
+  })
+);
+
 // --- Start ---
 
 async function main() {
