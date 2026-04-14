@@ -1,7 +1,7 @@
 {
   "name": "@japan-mcp/line",
   "version": "0.1.0",
-  "description": "MCP server for LINE Messaging API — send messages, manage groups, and view analytics through AI assistants",
+  "description": "MCP server for LINE Messaging API. Send messages, manage groups, view analytics.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {

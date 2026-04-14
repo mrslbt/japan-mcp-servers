@@ -179,7 +179,7 @@ server.tool(
 
 server.tool(
   "list_account_items",
-  "List account categories (勘定科目) from freee — useful for knowing which account to assign transactions to",
+  "List account categories (勘定科目) from freee. Useful for knowing which account to assign transactions to",
   {},
   async () => {
     const companyId = getCompanyId();
@@ -229,7 +229,7 @@ server.tool(
 
 server.tool(
   "get_trial_balance",
-  "Get the trial balance sheet (試算表) — a financial summary for a period",
+  "Get the trial balance sheet (試算表) for a given period",
   {
     fiscalYear: z.number().describe("Fiscal year"),
     startMonth: z.number().min(1).max(12).optional().describe("Start month"),

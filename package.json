@@ -1,7 +1,7 @@
 {
   "name": "japan-mcp-servers",
   "version": "0.1.0",
-  "description": "MCP servers for Japanese services — LINE, Rakuten, freee, and more. Connect AI assistants to Japan's digital ecosystem.",
+  "description": "MCP servers for Japanese services. LINE, Rakuten, freee.",
   "private": true,
   "workspaces": [
     "servers/*"

@@ -1,7 +1,7 @@
 {
   "name": "rakuten-mcp",
   "version": "0.1.0",
-  "description": "MCP server for Rakuten APIs — search products, books, hotels, and rankings through AI assistants",
+  "description": "MCP server for Rakuten APIs. Search products, books, hotels, and rankings.",
   "type": "module",
   "main": "dist/index.js",
   "bin": {

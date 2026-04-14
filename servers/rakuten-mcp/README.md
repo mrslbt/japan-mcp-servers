@@ -2,7 +2,7 @@
 
 MCP server for [Rakuten Web Service APIs](https://webservice.rakuten.co.jp/).
 
-Search Japan's largest e-commerce marketplace, plus Rakuten Books and Rakuten Travel — all from your AI assistant.
+Search Japan's largest e-commerce marketplace, plus Rakuten Books and Rakuten Travel.
 
 ## Install
 

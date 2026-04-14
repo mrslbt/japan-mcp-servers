@@ -142,7 +142,7 @@ server.tool(
 
 server.tool(
   "get_genre_ranking",
-  "Get the Rakuten Ichiba ranking (bestsellers) — overall or by genre",
+  "Get the Rakuten Ichiba ranking (bestsellers), overall or by genre",
   {
     genreId: z
       .string()
