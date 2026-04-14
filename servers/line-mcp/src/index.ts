@@ -321,8 +321,6 @@ server.resource("bot-info", "line://bot-info", async (uri) => {
 // --- Start ---
 
 async function main() {
-  getToken();
-
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error("LINE MCP server running on stdio");

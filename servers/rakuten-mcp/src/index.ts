@@ -422,9 +422,6 @@ server.tool(
 // --- Start ---
 
 async function main() {
-  getAppId();
-  getAccessKey();
-
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error("Rakuten MCP server running on stdio");

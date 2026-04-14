@@ -319,10 +319,6 @@ server.resource(
 // --- Start ---
 
 async function main() {
-  // Validate credentials at startup so users get immediate feedback
-  getToken();
-  getCompanyId();
-
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error("freee MCP server running on stdio");
