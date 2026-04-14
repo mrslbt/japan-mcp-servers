@@ -10,8 +10,7 @@ function getToken(): string {
   const token = process.env.LINE_CHANNEL_ACCESS_TOKEN;
   if (!token) {
     throw new Error(
-      "LINE_CHANNEL_ACCESS_TOKEN environment variable is required. " +
-        "Get one at https://developers.line.biz/console/"
+      "LINE_CHANNEL_ACCESS_TOKEN not set. Get one at https://developers.line.biz/console/"
     );
   }
   return token;
@@ -420,6 +419,9 @@ async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error("LINE MCP server running on stdio");
+  if (!process.env.LINE_CHANNEL_ACCESS_TOKEN) {
+    console.error("Warning: LINE_CHANNEL_ACCESS_TOKEN not set. Tools will fail until configured. Get your token at https://developers.line.biz/console/");
+  }
 }
 
 main().catch((err) => {

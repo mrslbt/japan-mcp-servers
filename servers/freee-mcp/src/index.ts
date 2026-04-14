@@ -10,8 +10,7 @@ function getToken(): string {
   const token = process.env.FREEE_ACCESS_TOKEN;
   if (!token) {
     throw new Error(
-      "FREEE_ACCESS_TOKEN environment variable is required. " +
-        "Get one at https://developer.freee.co.jp/"
+      "FREEE_ACCESS_TOKEN not set. Get one at https://developer.freee.co.jp/"
     );
   }
   return token;
@@ -21,8 +20,7 @@ function getCompanyId(): string {
   const id = process.env.FREEE_COMPANY_ID;
   if (!id) {
     throw new Error(
-      "FREEE_COMPANY_ID environment variable is required. " +
-        "Find it in your freee account settings."
+      "FREEE_COMPANY_ID not set. Find it in your freee account settings."
     );
   }
   if (Number.isNaN(Number(id))) {
@@ -425,6 +423,9 @@ async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error("freee MCP server running on stdio");
+  if (!process.env.FREEE_ACCESS_TOKEN || !process.env.FREEE_COMPANY_ID) {
+    console.error("Warning: FREEE_ACCESS_TOKEN and/or FREEE_COMPANY_ID not set. Tools will fail until configured. Get your credentials at https://developer.freee.co.jp/");
+  }
 }
 
 main().catch((err) => {
