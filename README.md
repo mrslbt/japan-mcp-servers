@@ -1,5 +1,7 @@
 # japan-mcp-servers
 
+[![MCP Badge](https://lobehub.com/badge/mcp/mrslbt-japan-mcp-servers)](https://lobehub.com/mcp/mrslbt-japan-mcp-servers)
+
 MCP servers for Japanese services. LINE, Rakuten, freee.
 
 These servers let AI agents (Claude, Cursor, VS Code Copilot) connect to the services people in Japan use every day.
