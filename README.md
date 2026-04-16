@@ -2,16 +2,14 @@
 
 [![MCP Badge](https://lobehub.com/badge/mcp/mrslbt-japan-mcp-servers)](https://lobehub.com/mcp/mrslbt-japan-mcp-servers)
 
-MCP servers for Japanese services. LINE, Rakuten, freee.
-
-These servers let AI agents (Claude, Cursor, VS Code Copilot) connect to the services people in Japan use every day.
+A monorepo of Model Context Protocol servers for Japanese services: LINE Messaging, Rakuten Web Service, and freee Accounting.
 
 ## Servers
 
-| Package | Service | What it does |
-|---------|---------|-------------|
+| Package | Service | Scope |
+|---|---|---|
 | [`rakuten-mcp`](https://www.npmjs.com/package/rakuten-mcp) | Rakuten Ichiba / Books / Travel | Product search, rankings, book search, hotel availability |
-| [`line-mcp`](./servers/line-mcp) | LINE Messaging | Send messages, manage groups, rich menus, analytics |
+| [`line-mcp`](./servers/line-mcp) | LINE Messaging | Messages, groups, rich menus, analytics |
 | [`freee-mcp`](./servers/freee-mcp) | freee Accounting | Transactions, P&L, trial balance, partners |
 
 ## Quick start
@@ -39,13 +37,13 @@ Add to Claude Desktop (`claude_desktop_config.json`):
 }
 ```
 
-Or with Claude Code:
+Claude Code:
 
 ```bash
-claude mcp add rakuten -- npx -y rakuten-mcp
+claude mcp add rakuten -e RAKUTEN_APP_ID=... -e RAKUTEN_ACCESS_KEY=... -- npx -y rakuten-mcp
 ```
 
-### LINE & freee (from source)
+### LINE and freee (from source)
 
 ```bash
 git clone https://github.com/mrslbt/japan-mcp-servers.git
@@ -78,86 +76,78 @@ Then add to Claude Desktop:
 }
 ```
 
-Credentials are validated when you call a tool, not on startup.
+Credentials are validated on first tool call, not at startup.
 
-## What you can do
-
-Once configured, you can ask your AI assistant things like:
+## Example queries
 
 ```
-Send a meeting reminder to my LINE group
-LINEグループにミーティングのリマインダーを送って
+Send a meeting reminder to my LINE group.
+LINEグループにミーティングのリマインダーを送って。
 
-Search Rakuten for wireless earphones under ¥10,000
-楽天で1万円以下のワイヤレスイヤホンを検索して
+Search Rakuten for wireless earphones under ¥10,000.
+楽天で1万円以下のワイヤレスイヤホンを検索して。
 
-Record this month's expenses in freee
-今月の経費をfreeeに登録して
+Record this month's expenses in freee.
+今月の経費をfreeeに登録して。
 
-Find available hotels in Kyoto on Rakuten Travel
-楽天トラベルで京都の空室を探して
+Find available hotels in Kyoto on Rakuten Travel.
+楽天トラベルで京都の空室を探して。
 
-Show me the P&L statement from freee
-freeeの損益計算書を見せて
+Show me the P&L statement from freee.
+freeeの損益計算書を見せて。
 ```
 
 ## LINE
 
-> **Note:** LINE now has an official MCP server: [`@line/line-bot-mcp-server`](https://github.com/line/line-bot-mcp-server). Use that for production. The implementation here was built independently and covers a broader set of tools.
+> An official server is available at [`@line/line-bot-mcp-server`](https://github.com/line/line-bot-mcp-server). Use that for production. The implementation here was built independently and covers a broader tool set.
 
-Connect to Japan's dominant messaging platform (95M+ MAU).
+Requires `LINE_CHANNEL_ACCESS_TOKEN` from the [LINE Developers Console](https://developers.line.biz/console/).
 
-**Required:** `LINE_CHANNEL_ACCESS_TOKEN` from [LINE Developers Console](https://developers.line.biz/console/)
-
-| Tool | |
-|------|-|
-| `send_push_message` | Send to a user or group |
-| `send_multicast_message` | Send to up to 500 users |
-| `send_broadcast_message` | Send to all followers |
-| `get_profile` | User display name, picture, status |
-| `get_group_summary` | Group info |
-| `get_group_members` | List all member IDs (auto-paginates) |
-| `get_message_quota` | Quota and current consumption |
-| `get_bot_info` | Bot details |
-| `get_followers_count` | Follower count by date |
-| `get_message_delivery_stats` | Delivery analytics by date |
-| `create_rich_menu` | Create interactive bottom menus |
+| Tool | Description |
+|---|---|
+| `send_push_message` | Send to a user or group. |
+| `send_multicast_message` | Send to up to 500 users. |
+| `send_broadcast_message` | Send to all followers. |
+| `get_profile` | User display name, picture, status. |
+| `get_group_summary` | Group info. |
+| `get_group_members` | List all member IDs (auto-paginates). |
+| `get_message_quota` | Quota and current consumption. |
+| `get_bot_info` | Bot details. |
+| `get_followers_count` | Follower count by date. |
+| `get_message_delivery_stats` | Delivery analytics by date. |
+| `create_rich_menu` | Create interactive bottom menus. |
 
 ## Rakuten
 
-Search Japan's largest e-commerce marketplace, plus Books and Travel.
+Requires `RAKUTEN_APP_ID` and `RAKUTEN_ACCESS_KEY` from [Rakuten Web Service](https://webservice.rakuten.co.jp/).
 
-**Required:** `RAKUTEN_APP_ID` + `RAKUTEN_ACCESS_KEY` from [Rakuten Web Service](https://webservice.rakuten.co.jp/)
-
-| Tool | |
-|------|-|
-| `search_products` | Full-text search with price filters and sorting |
-| `get_genre_ranking` | Bestseller rankings by category |
-| `search_genres` | Browse the category tree |
-| `search_books` | Search by title, author, ISBN, or keyword |
-| `search_travel` | Hotel search by keyword |
-| `search_travel_vacancy` | Available rooms by date, location, price |
-| `get_product_reviews` | Product reviews with rating sort |
+| Tool | Description |
+|---|---|
+| `search_products` | Full-text search with price filters and sorting. |
+| `get_genre_ranking` | Bestseller rankings by category. |
+| `search_genres` | Browse the category tree. |
+| `search_books` | Search by title, author, ISBN, or keyword. |
+| `search_travel` | Hotel search by keyword. |
+| `search_travel_vacancy` | Available rooms by date, location, price. |
+| `get_product_reviews` | Product reviews with rating sort. |
 
 ## freee
 
-> **Note:** freee now maintains an official MCP server: [`freee-mcp`](https://github.com/freee/freee-mcp) covering 330+ APIs. Use that for production. The implementation here was built independently as a lightweight alternative.
+> An official server is available at [`freee-mcp`](https://github.com/freee/freee-mcp) covering 330+ APIs. Use that for production. The implementation here was built independently as a lightweight alternative.
 
-Cloud accounting for Japanese businesses. freee is Japan's #1 accounting SaaS.
+Requires `FREEE_ACCESS_TOKEN` and `FREEE_COMPANY_ID` from the [freee Developer Portal](https://developer.freee.co.jp/).
 
-**Required:** `FREEE_ACCESS_TOKEN` + `FREEE_COMPANY_ID` from [freee Developer Portal](https://developer.freee.co.jp/)
+| Tool | Description |
+|---|---|
+| `list_deals` | List income and expense transactions. |
+| `create_deal` | Record transactions with optional payment settlement. |
+| `list_account_items` | Browse account categories (勘定科目). |
+| `list_partners` | Search trading partners (取引先). |
+| `get_trial_balance` | Trial balance sheet (試算表). |
+| `get_profit_and_loss` | P&L statement (損益計算書). |
+| `get_company_info` | Company details. |
 
-| Tool | |
-|------|-|
-| `list_deals` | List income/expense transactions |
-| `create_deal` | Record transactions with optional payment settlement |
-| `list_account_items` | Browse account categories (勘定科目) |
-| `list_partners` | Search trading partners (取引先) |
-| `get_trial_balance` | Trial balance sheet (試算表) |
-| `get_profit_and_loss` | P&L statement (損益計算書) |
-| `get_company_info` | Company details |
-
-> **Note:** freee deprecated invoice endpoints in 2023-2025. Invoice management moved to the [freee Invoice API](https://developer.freee.co.jp/reference/iv).
+> freee deprecated invoice endpoints during 2023-2025. Invoice management has moved to the [freee Invoice API](https://developer.freee.co.jp/reference/iv).
 
 ## Project structure
 
@@ -168,32 +158,33 @@ japan-mcp-servers/
 │   ├── rakuten-mcp/        # Rakuten Ichiba, Books, Travel
 │   └── freee-mcp/          # freee Accounting
 ├── .github/
-│   ├── workflows/ci.yml    # Build check on every push/PR
+│   ├── workflows/ci.yml
 │   └── ISSUE_TEMPLATE/
-├── tsup.config.js          # Shared build config
-├── tsconfig.json            # Shared TypeScript config
-└── package.json             # npm workspaces
+├── tsup.config.js
+├── tsconfig.json
+└── package.json            # npm workspaces
 ```
 
-Each server is a standalone npm package. They share build tooling but have zero runtime dependencies on each other.
+Each server is a standalone npm package. They share build tooling and have no runtime dependencies on each other.
 
 ## Roadmap
 
-Planned servers (PRs welcome):
+Planned servers (contributions welcome):
 
-- Mercari - product search, listing management
-- Yahoo! Japan - search, auctions, shopping
-- SmartHR - HR / employee management
-- Money Forward - personal finance
-- PayPay - mobile payments
-- Tabelog - restaurant search
-- Suumo - real estate
-- Hotpepper - restaurant & beauty reservations
+- Mercari — product search, listing management
+- Yahoo! Japan — search, auctions, shopping
+- SmartHR — HR and employee management
+- Money Forward — personal finance
+- Tabelog — restaurant search
+- Suumo — real estate
+- Hotpepper — restaurant and beauty reservations
+
+PayPay is already available as a separate repo: [`paypay-mcp`](https://github.com/mrslbt/paypay-mcp).
 
 ## Contributing
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md). The short version: copy an existing server's structure, implement your tools, open a PR.
+See [CONTRIBUTING.md](./CONTRIBUTING.md). In short: copy an existing server's structure, implement tools, open a PR.
 
 ## License
 
-MIT
+[MIT](LICENSE)
