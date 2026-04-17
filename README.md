@@ -185,6 +185,10 @@ PayPay is already available as a separate repo: [`paypay-mcp`](https://github.co
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). In short: copy an existing server's structure, implement tools, open a PR.
 
+## Disclaimer
+
+This is an unofficial collection of MCP servers. Not affiliated with or endorsed by LINE Corporation, Rakuten Group, Inc., or freee K.K.
+
 ## License
 
 [MIT](LICENSE)
