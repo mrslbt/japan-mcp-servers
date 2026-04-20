@@ -103,6 +103,14 @@ Find books by Haruki Murakami on Rakuten Books
 村上春樹の本を楽天ブックスで探して
 ```
 
+## Safety
+
+All tools in this server are read-only searches against the Rakuten Web Service API. No tool creates, modifies, or deletes any resource. Rate limits and terms of use from Rakuten still apply. Products and reviews returned by the API may be promotional. Treat search results as suggestions, not endorsements, and verify prices and availability on the Rakuten site before acting on them.
+
+## Disclaimer
+
+This is an unofficial, community-built MCP server. Not affiliated with, endorsed by, or sponsored by Rakuten Group, Inc. Rakuten, Rakuten Ichiba, Rakuten Books, and Rakuten Travel are trademarks of Rakuten Group, Inc. Use at your own risk. The author accepts no liability for issues arising from misuse, prompt injection, or bugs.
+
 ## License
 
-MIT
+[MIT](LICENSE)

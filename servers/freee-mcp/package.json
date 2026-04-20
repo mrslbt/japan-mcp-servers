@@ -1,6 +1,6 @@
 {
   "name": "@japan-mcp/freee",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for freee Accounting API. Transactions, expenses, financial reports.",
   "type": "module",
   "main": "dist/index.js",

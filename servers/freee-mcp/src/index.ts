@@ -6,6 +6,8 @@ import { z } from "zod";
 
 const FREEE_API_BASE = "https://api.freee.co.jp/api/1";
 
+const WRITES_ENABLED = process.env.FREEE_ENABLE_WRITES === "true";
+
 function getToken(): string {
   const token = process.env.FREEE_ACCESS_TOKEN;
   if (!token) {
@@ -62,7 +64,7 @@ async function freeeRequest(
 
 const server = new McpServer({
   name: "freee-mcp",
-  version: "0.1.0",
+  version: "0.1.1",
 });
 
 // --- Tools ---
@@ -106,9 +108,9 @@ server.tool(
   }
 );
 
-server.tool(
+if (WRITES_ENABLED) server.tool(
   "create_deal",
-  "Create a new transaction/deal in freee (e.g., record an expense or income)",
+  "Create a new transaction/deal in freee (e.g., record an expense or income). Requires FREEE_ENABLE_WRITES=true.",
   {
     type: z.enum(["income", "expense"]).describe("income (収入) or expense (支出)"),
     issueDate: z.string().describe("Transaction date (YYYY-MM-DD)"),

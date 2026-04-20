@@ -6,6 +6,8 @@ import { z } from "zod";
 
 const LINE_API_BASE = "https://api.line.me/v2";
 
+const BROADCAST_ENABLED = process.env.LINE_ENABLE_BROADCAST === "true";
+
 function getToken(): string {
   const token = process.env.LINE_CHANNEL_ACCESS_TOKEN;
   if (!token) {
@@ -48,7 +50,7 @@ async function lineRequest(
 
 const server = new McpServer({
   name: "line-mcp",
-  version: "0.1.0",
+  version: "0.1.1",
 });
 
 // --- Tools ---
@@ -72,48 +74,50 @@ server.tool(
   }
 );
 
-server.tool(
-  "send_multicast_message",
-  "Send a message to multiple LINE users at once",
-  {
-    userIds: z.array(z.string()).min(1).max(500).describe("Array of user IDs (max 500)"),
-    text: z.string().describe("Message text to send"),
-  },
-  async ({ userIds, text }) => {
-    await lineRequest("/bot/message/multicast", {
-      method: "POST",
-      body: JSON.stringify({
-        to: userIds,
-        messages: [{ type: "text", text }],
-      }),
-    });
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Message sent to ${userIds.length} users`,
-        },
-      ],
-    };
-  }
-);
+if (BROADCAST_ENABLED) {
+  server.tool(
+    "send_multicast_message",
+    "Send a message to multiple LINE users at once. Requires LINE_ENABLE_BROADCAST=true.",
+    {
+      userIds: z.array(z.string()).min(1).max(500).describe("Array of user IDs (max 500)"),
+      text: z.string().describe("Message text to send"),
+    },
+    async ({ userIds, text }) => {
+      await lineRequest("/bot/message/multicast", {
+        method: "POST",
+        body: JSON.stringify({
+          to: userIds,
+          messages: [{ type: "text", text }],
+        }),
+      });
+      return {
+        content: [
+          {
+            type: "text",
+            text: `Message sent to ${userIds.length} users`,
+          },
+        ],
+      };
+    }
+  );
 
-server.tool(
-  "send_broadcast_message",
-  "Broadcast a message to all friends of your LINE Official Account",
-  {
-    text: z.string().describe("Message text to broadcast"),
-  },
-  async ({ text }) => {
-    await lineRequest("/bot/message/broadcast", {
-      method: "POST",
-      body: JSON.stringify({
-        messages: [{ type: "text", text }],
-      }),
-    });
-    return { content: [{ type: "text", text: "Broadcast message sent" }] };
-  }
-);
+  server.tool(
+    "send_broadcast_message",
+    "Broadcast a message to all friends of your LINE Official Account. Requires LINE_ENABLE_BROADCAST=true.",
+    {
+      text: z.string().describe("Message text to broadcast"),
+    },
+    async ({ text }) => {
+      await lineRequest("/bot/message/broadcast", {
+        method: "POST",
+        body: JSON.stringify({
+          messages: [{ type: "text", text }],
+        }),
+      });
+      return { content: [{ type: "text", text: "Broadcast message sent" }] };
+    }
+  );
+}
 
 server.tool(
   "get_profile",
@@ -324,24 +328,26 @@ server.prompt(
   })
 );
 
-server.prompt(
-  "broadcast_announcement",
-  "Broadcast an announcement to all LINE followers",
-  {
-    message: z.string().describe("Announcement text"),
-  },
-  ({ message }) => ({
-    messages: [
-      {
-        role: "user" as const,
-        content: {
-          type: "text" as const,
-          text: `Broadcast this announcement to all LINE followers: "${message}"`,
+if (BROADCAST_ENABLED) {
+  server.prompt(
+    "broadcast_announcement",
+    "Broadcast an announcement to all LINE followers",
+    {
+      message: z.string().describe("Announcement text"),
+    },
+    ({ message }) => ({
+      messages: [
+        {
+          role: "user" as const,
+          content: {
+            type: "text" as const,
+            text: `Broadcast this announcement to all LINE followers: "${message}"`,
+          },
         },
-      },
-    ],
-  })
-);
+      ],
+    })
+  );
+}
 
 server.prompt(
   "check_delivery_stats",
